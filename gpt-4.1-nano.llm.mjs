@@ -10,7 +10,7 @@ export default async (payload , context) => {
       },
       body: JSON.stringify({ 
           ...payload,
-          model: "gpt-4o-mini",
+          model: "gpt-4.1-nano",
       })
   })
 }
