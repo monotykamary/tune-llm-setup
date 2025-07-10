@@ -1,11 +1,75 @@
 # .tune Directory
 
-This directory (`~/.tune`) serves as a global configuration and workspace for the associated VSCode extension.
+This directory (`~/.tune`) serves as a global configuration and workspace for tune extensions in VSCode and Neovim.
 
 The primary purpose of this directory is to provide a centralized location for:
 
-- **Global settings:** Configure the behavior of the VSCode extension across all your projects.
-- **Shared resources:** Store files, scripts, or other assets that can be accessed by the extension.
+- **Global settings:** Configure the behavior of tune extensions across all your projects.
+- **Shared resources:** Store files, scripts, or other assets that can be accessed by the extensions.
 - **Customizations:** Define custom configurations or extensions for the tool's functionality.
+- **LLM Configurations:** Manage API keys and model-specific settings for various AI providers.
 
-By setting the VSCode extension to point to this directory, you establish a consistent and personalized environment for your development workflow.
+## Setup
+
+### VSCode
+
+Set the VSCode extension to point to this directory to establish a consistent environment for your development workflow.
+
+### Neovim
+
+1. Install the tune.nvim plugin using your preferred package manager. Example with lazy.nvim:
+
+```lua
+-- ~/.config/nvim/lua/plugins/tune.lua
+return {
+  "iovdin/tune.nvim",
+  dependencies = {
+    "iovdin/tree-sitter-chat",
+    "nvim-treesitter/nvim-treesitter",
+  },
+  config = function()
+    local custom_paths_string = vim.fn.expand("~") .. "/.tune"
+    vim.env.TUNE_PATH = custom_paths_string
+    require("tune").setup({})
+  end,
+  ft = { "chat" },
+}
+```
+
+2. Configure your API keys in `~/.tune/.env`:
+
+```bash
+ANTHROPIC_KEY=""
+OPENAI_KEY=""
+OPENROUTER_KEY=""
+GEMINI_KEY=""
+GROK_KEY=""
+```
+
+3. Add custom LLM configurations as needed. Example for Grok:
+
+```js
+// ~/.tune/grok.llm.mjs
+export default async (payload, context) => {
+  const key = await context.read("GROK_KEY");
+
+  return ({
+    url: "https://api.x.ai/v1/chat/completions",
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${key}`
+    },
+    body: JSON.stringify({
+      ...payload,
+      model: "grok-4",
+    })
+  })
+}
+```
+
+## Usage
+
+- Create `.chat` files to interact with your configured LLMs
+- The tune.nvim plugin will automatically load when editing `.chat` files
+- Your LLM configurations and API keys from this directory will be available in both VSCode and Neovim
