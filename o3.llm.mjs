@@ -1,8 +1,8 @@
 export default async (payload, context) => {
-  const key = await context.read("GROK_KEY");
+  const key = await context.read("OPENAI_KEY");
   // const key = process.env.OPENAI_KEY;
   return ({
-    url: "https://api.x.ai/v1/chat/completions",
+    url: "https://api.openai.com/v1/chat/completions",
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -10,7 +10,7 @@ export default async (payload, context) => {
     },
     body: JSON.stringify({
       ...payload,
-      model: "grok-4",
+      model: "o3",
     })
   })
 }
