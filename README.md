@@ -76,6 +76,27 @@ export default async (payload, context) => {
 
 ## Documentation
 
+### Tree-sitter Configuration
+
+The `injections.scm` file configures tree-sitter to inject markdown syntax highlighting into `.chat` files. This enables proper markdown formatting within chat content sections.
+
+**File location:** Place in your Neovim tree-sitter configuration directory:
+- `~/.config/nvim/queries/chat/injections.scm`
+
+**Content:**
+```scheme
+;; Chat language markdown injection queries
+;; Injects markdown highlighting into content sections
+
+((content) @injection.content
+ (#set! injection.language "markdown")
+ (#set! injection.include-children))
+```
+
+This configuration tells tree-sitter to treat all `content` nodes in `.chat` files as markdown, providing syntax highlighting for markdown elements like headers, lists, code blocks, and emphasis.
+
+The `injections.scm` file in this repository serves as a reference copy for the required configuration.
+
 ### Tools Usage
 **[Full Documentation](https://iovdin.github.io/tune/template-language/tools)** - Learn how to use tools in your chat sessions
 
