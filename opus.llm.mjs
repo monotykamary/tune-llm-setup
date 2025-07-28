@@ -1,8 +1,8 @@
 export default async (payload, context) => {
-  const key = await context.read("GEMINI_KEY");
+  const key = await context.read("ANTHROPIC_KEY");
 
   return ({
-    url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+    url: "https://api.anthropic.com/v1/chat/completions",
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -10,7 +10,7 @@ export default async (payload, context) => {
     },
     body: JSON.stringify({
       ...payload,
-      model: "gemini-2.5-pro",
+      model: "claude-opus-4-20250514",
     })
   })
 }
