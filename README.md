@@ -97,6 +97,21 @@ This configuration tells tree-sitter to treat all `content` nodes in `.chat` fil
 
 The `injections.scm` file in this repository serves as a reference copy for the required configuration.
 
+**Preventing Markdown Jittering:**
+
+When using markdown injection, you may experience visual jittering or jumps as the assistant writes content. To prevent this, add the following autocmd to your Neovim configuration:
+
+```lua
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "markdown", "chat" },
+  callback = function()
+    vim.wo.conceallevel = 0
+  end,
+})
+```
+
+This disables concealment for markdown and chat file types, eliminating the visual instability that occurs when syntax highlighting is injected during streaming responses.
+
 ### Tools Usage
 **[Full Documentation](https://iovdin.github.io/tune/template-language/tools)** - Learn how to use tools in your chat sessions
 
