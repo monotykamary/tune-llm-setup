@@ -1,5 +1,5 @@
 export default async (payload, context) => {
-  const key = await context.read("GEMINI_KEY");
+  const key = await context.read("GEMINI_API_KEY");
 
   return ({
     url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",

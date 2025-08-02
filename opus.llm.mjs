@@ -1,5 +1,5 @@
 export default async (payload, context) => {
-  const key = await context.read("ANTHROPIC_KEY");
+  const key = await context.read("ANTHROPIC_API_KEY");
 
   return ({
     url: "https://api.anthropic.com/v1/chat/completions",

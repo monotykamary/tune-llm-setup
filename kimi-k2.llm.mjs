@@ -1,8 +1,8 @@
 export default async (payload, context) => {
-  const key = await context.read("OPENAI_API_KEY");
+  const key = await context.read("MOONSHOT_API_KEY");
 
   return ({
-    url: "https://api.openai.com/v1/chat/completions",
+    url: "https://api.moonshot.ai/v1/chat/completions",
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -10,7 +10,7 @@ export default async (payload, context) => {
     },
     body: JSON.stringify({
       ...payload,
-      model: "o3",
+      model: "kimi-k2-0711-preview",
     })
   })
 }

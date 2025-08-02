@@ -39,11 +39,11 @@ return {
 2. Configure your API keys in `~/.tune/.env`:
 
 ```bash
-ANTHROPIC_KEY=""
-OPENAI_KEY=""
+ANTHROPIC_API_KEY=""
+OPENAI_API_KEY=""
 OPENROUTER_KEY=""
-GEMINI_KEY=""
-GROK_KEY=""
+GEMINI_API_KEY=""
+GROK_API_KEY=""
 ```
 
 3. Add custom LLM configurations as needed. Example for Grok:
@@ -51,7 +51,7 @@ GROK_KEY=""
 ```js
 // ~/.tune/grok.llm.mjs
 export default async (payload, context) => {
-  const key = await context.read("GROK_KEY");
+  const key = await context.read("GROK_API_KEY");
 
   return ({
     url: "https://api.x.ai/v1/chat/completions",
