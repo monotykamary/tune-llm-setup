@@ -74,6 +74,10 @@ export default async (payload, context) => {
 - The tune.nvim plugin will automatically load when editing `.chat` files
 - Your LLM configurations and API keys from this directory will be available in both VSCode and Neovim
 
+## Batteries Included
+
+For additional tools, processors, and contexts, see the [tune tools repository](https://github.com/iovdin/tune/blob/main/tools/README.md). This comprehensive collection includes file operations, web integration, AI capabilities, development tools, and agent-building components that can be forked and customized for your specific needs.
+
 ## Documentation
 
 ### Tree-sitter Configuration
